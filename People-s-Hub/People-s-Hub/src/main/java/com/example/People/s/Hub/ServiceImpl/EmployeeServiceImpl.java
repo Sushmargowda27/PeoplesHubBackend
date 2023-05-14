@@ -1,14 +1,24 @@
 package com.example.People.s.Hub.ServiceImpl;
 
+import java.io.IOException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.People.s.Hub.EmailSenderService.EmailSender;
 import com.example.People.s.Hub.Exception.CustomException;
 import com.example.People.s.Hub.Model.Employee;
 import com.example.People.s.Hub.Repository.EmployeeRepository;
+import com.example.People.s.Hub.Repository.ImageRepository;
 import com.example.People.s.Hub.Service.EmployeeService;
+import com.example.People.s.Hub.Model.Image;
+import com.example.People.s.Hub.Model.ImageUtility;
+
 @Service
 public class EmployeeServiceImpl implements EmployeeService{
 
@@ -17,6 +27,9 @@ public class EmployeeServiceImpl implements EmployeeService{
 	
 	@Autowired
 	private EmailSender emailsender;
+	
+	@Autowired
+	private ImageRepository imagerepo;
 	
 	@Override
 	public Employee save(Employee emp) {
@@ -123,4 +136,46 @@ public class EmployeeServiceImpl implements EmployeeService{
 		}
 	}
 
+	@Override
+	public Object saveimage(MultipartFile file, int empid) throws IOException {
+		// TODO Auto-generated method stub
+		String filename = StringUtils.cleanPath(file.getOriginalFilename());
+		if (filename.contains("..")) {
+			System.out.println("Not a valid file");
+		}
+		System.out.println(file);
+		Image i=new Image();
+		i.setType(file.getContentType());
+		i.setData(ImageUtility.compressImage(file.getBytes()));
+		i.setName(filename);
+		i.setId(empid);
+		System.out.println(i);
+		
+	    Employee emp=employeerepo.findByid(empid);
+	    Image image=new Image();
+	    if(emp!=null)
+	    {
+	    	image=imagerepo.save(i);
+	    }
+		if(image!=null)
+		  {
+			  return ResponseEntity.ok("File uploaded successfully!");
+		  }
+		  return null;
+	}
+
+	@Override
+	public Object getimage(int empid) {
+		// TODO Auto-generated method stub
+		Image image=imagerepo.findByid(empid);
+		
+		if (image != null) {
+			byte[] im=ImageUtility.decompressImage(image.getData());
+			System.out.println(im);
+	        return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG)
+	        		.body(im);
+	    } else {
+	        return ResponseEntity.notFound().build();
+	    }
+	}
 }
