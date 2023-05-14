@@ -12,9 +12,10 @@ public class OTPGenerator {
 	@Autowired
 	private EmailSender  emailser;
 	
+	Random random=new Random();
+	
 	public int otp(String email)
 	{
-		Random random=new Random();
 		int otp=random.nextInt(100000,999999);
 		boolean b=emailser.sendemail(email, "this is your otp:" + otp, "Don't Share with Anyone");
 		
@@ -24,5 +25,16 @@ public class OTPGenerator {
 		}
 		return 0;
 	}
-
+	
+	public int otp1(String email)
+	{
+		int otp=random.nextInt(1000, 9999);
+        boolean b=emailser.sendemail(email, "this is your otp:" + otp, "Don't Share with Anyone");
+		
+		if(b==true)
+		{
+			return otp;
+		}
+		return 0;
+	}
 }
