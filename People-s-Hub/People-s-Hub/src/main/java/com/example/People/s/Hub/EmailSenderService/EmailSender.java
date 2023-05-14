@@ -10,9 +10,10 @@ public class EmailSender {
 	@Autowired
 	private JavaMailSender javamailsender;
 	
+	SimpleMailMessage message=new SimpleMailMessage();
+	
 	public boolean sendemail(String toemail, String subject, String body) 
 	{
-		SimpleMailMessage message=new SimpleMailMessage();
 		message.setFrom("sushmargowda27@gmail.com");
 		message.setTo(toemail);
 		message.setText(body);
@@ -23,5 +24,18 @@ public class EmailSender {
 		System.out.println("Mail Sent Successfully");
 		return true;
 	}
-
+     
+	public boolean sendemail1(String toemail,String subject,String body)
+	{
+		message.setFrom("sushmargowda27@gmail.com");
+		message.setTo(toemail);
+		message.setSubject(subject);
+		message.setText(body);
+		
+       javamailsender.send(message);
+		
+		System.out.println("Mail Sent Successfully to Employee with OTP");
+		return true;
+	}
+	
 }

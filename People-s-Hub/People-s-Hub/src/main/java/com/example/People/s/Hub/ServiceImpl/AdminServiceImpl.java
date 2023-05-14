@@ -20,14 +20,14 @@ public class AdminServiceImpl implements AdminService{
 	private OTPGenerator otpgen;
 	
 	@Override
-	public String login(Admin admin) {
+	public String login(String email, String password) {
 		// TODO Auto-generated method stub
-		Admin adm=adminrepo.findemail(admin.getEmail());
+		Admin adm=adminrepo.findemail(email);
 		try
 		{
 			if(adm!=null)
 			{
-				if(adm.getPassword().equals(admin.getPassword()))
+				if(adm.getPassword().equals(password))
 				{
 					throw new CustomException("login successfully");
 				}
@@ -49,32 +49,18 @@ public class AdminServiceImpl implements AdminService{
 
 
 	@Override
-	public Object email(String email) {
+	public Object forgot(String email) {
 		// TODO Auto-generated method stub
 		Admin admin=adminrepo.findemail(email);
-			if(admin!=null)
+		if(admin!=null)
 			{
 				int otp=otpgen.otp(admin.getEmail());
 				return otp;
 			}
 			else
 			{
-				return 0;
+				return "0";
 			}
-		
-	}
-
-
-	@Override
-	public Object forgot(String email, String password) {
-		// TODO Auto-generated method stub
-		Admin admin=adminrepo.findemail(email);
-		if(admin!=null)
-		{
-			admin.setPassword(password);
-			return "password reset successfully";
-		}
-		return "password not reset succesfully";
 	}
 	
 }
