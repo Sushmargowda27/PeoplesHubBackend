@@ -1,6 +1,7 @@
 package com.example.People.s.Hub.Model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +18,9 @@ public class Project {
 	private int id;
 	private String projectName;
 	private String projectDescription;
+	private String managername;
+	private Date Start_date;
+	
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name="pa_fid", referencedColumnName="id")
 	private List<AssignedEmployees> assignemp = new ArrayList<>();
