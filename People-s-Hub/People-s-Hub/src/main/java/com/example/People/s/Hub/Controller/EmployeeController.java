@@ -1,5 +1,6 @@
 package com.example.People.s.Hub.Controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.People.s.Hub.Model.Employee;
 import com.example.People.s.Hub.Service.EmployeeService;
@@ -58,4 +61,17 @@ public class EmployeeController {
 		return empser.getbyid(empid);
 	}
 	
+	
+	@PutMapping("/changepic/{empid}")
+	public Object change(@PathVariable int empid,@RequestParam("file") MultipartFile file) throws IOException
+	{
+		return empser.saveimage(file,empid);
+	}
+	
+	
+	@GetMapping("getpic/{empid}")
+	public Object getpic(@PathVariable int empid)
+	{
+		return empser.getimage(empid);
+	}
 }

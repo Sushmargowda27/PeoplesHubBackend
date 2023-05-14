@@ -1,7 +1,10 @@
 package com.example.People.s.Hub.Model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Employee {
@@ -20,9 +23,41 @@ public class Employee {
 	private int Salary;
 	private String CurrentLocation;
 	private int AssignedProject;
-	private String Image;
+	
 	private String Skills;
 	private int PreviousProject;
+	
+//	@OneToOne(cascade=CascadeType.ALL)
+//	@JoinColumn(name="ei_fid", referencedColumnName="id")
+//	private Image image;
+	
+
+	public Employee() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public Employee(int empid, String empName, String empEmail, String password, long empPhone, String linkedIn_URL,
+			String street, String city, String state, int zipCode, String designation, int salary,
+			String currentLocation, int assignedProject, String skills, int previousProject) {
+		super();
+		this.empid = empid;
+		this.empName = empName;
+		this.empEmail = empEmail;
+		this.password = password;
+		this.empPhone = empPhone;
+		this.LinkedIn_URL = linkedIn_URL;
+		this.Street = street;
+		this.City = city;
+		this.State = state;
+		this.zipCode = zipCode;
+		this.designation = designation;
+		this.Salary = salary;
+		this.CurrentLocation = currentLocation;
+		this.AssignedProject = assignedProject;
+		this.Skills = skills;
+		this.PreviousProject = previousProject;
+	}
+	
 	public int getEmpid() {
 		return empid;
 	}
@@ -106,12 +141,6 @@ public class Employee {
 	}
 	public void setAssignedProject(int assignedProject) {
 		AssignedProject = assignedProject;
-	}
-	public String getImage() {
-		return Image;
-	}
-	public void setImage(String image) {
-		Image = image;
 	}
 	public String getSkills() {
 		return Skills;
