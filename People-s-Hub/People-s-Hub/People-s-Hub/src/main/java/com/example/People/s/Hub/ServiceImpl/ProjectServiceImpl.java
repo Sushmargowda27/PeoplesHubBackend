@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.People.s.Hub.Model.AssignedEmployees;
 import com.example.People.s.Hub.Model.Project;
+import com.example.People.s.Hub.Repository.EmployeeRepository;
 import com.example.People.s.Hub.Repository.ProjectRepository;
 import com.example.People.s.Hub.Service.ProjectService;
 
@@ -14,6 +15,9 @@ public class ProjectServiceImpl implements ProjectService{
 
 	@Autowired
 	private ProjectRepository projectrepo;
+	
+	@Autowired
+	private EmployeeRepository employeerepo;
 	
 	@Override
 	public Project save(Project project) {

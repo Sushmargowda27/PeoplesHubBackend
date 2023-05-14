@@ -1,5 +1,7 @@
 package com.example.People.s.Hub.Model;
 
+import java.util.Date;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
@@ -9,8 +11,12 @@ public class Leaves {
    private int empid;
    private String empname;
    private String day_type;
-   private int dayscount;
+   private Date from;
+   private Date to;
+   private int completedleaves;
+   private int remainingleaves;
    private String manageremail;
+   private String teammatesemail;
    private String Reason;
    
    
@@ -31,12 +37,6 @@ public String getDay_type() {
 }
 public void setDay_type(String day_type) {
 	this.day_type = day_type;
-}
-public int getDayscount() {
-	return dayscount;
-}
-public void setDayscount(int dayscount) {
-	this.dayscount = dayscount;
 }
 public String getManageremail() {
 	return manageremail;

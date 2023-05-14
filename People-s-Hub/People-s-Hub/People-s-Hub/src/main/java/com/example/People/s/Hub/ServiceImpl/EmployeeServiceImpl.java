@@ -18,6 +18,7 @@ import com.example.People.s.Hub.Repository.ImageRepository;
 import com.example.People.s.Hub.Service.EmployeeService;
 import com.example.People.s.Hub.Model.Image;
 import com.example.People.s.Hub.Model.ImageUtility;
+import com.example.People.s.Hub.Model.Leaves;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService{
@@ -177,5 +178,18 @@ public class EmployeeServiceImpl implements EmployeeService{
 	    } else {
 	        return ResponseEntity.notFound().build();
 	    }
+	}
+
+	@Override
+	public Object addleaves(Leaves leaves) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Employee> getallmanager() {
+		// TODO Auto-generated method stub
+		String name="manager";
+		return employeerepo.getallmanager(name);
 	}
 }

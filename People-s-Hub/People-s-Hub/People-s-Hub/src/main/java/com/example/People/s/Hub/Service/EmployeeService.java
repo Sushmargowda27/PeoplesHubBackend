@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.People.s.Hub.Model.Employee;
+import com.example.People.s.Hub.Model.Leaves;
 
 public interface EmployeeService {
 	public Employee save(Employee emp);
@@ -16,4 +17,6 @@ public interface EmployeeService {
 	public Object getbyid(int id);
 	public Object saveimage(MultipartFile file, int empid) throws IOException;
 	public Object getimage(int empid);
+	public Object addleaves(Leaves leaves);
+	public List<Employee> getallmanager();
 }

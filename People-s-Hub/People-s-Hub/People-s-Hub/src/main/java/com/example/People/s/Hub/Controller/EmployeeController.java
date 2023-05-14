@@ -18,12 +18,16 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.People.s.Hub.Model.Employee;
 import com.example.People.s.Hub.Service.EmployeeService;
+import com.example.People.s.Hub.Service.JwtService;
 @CrossOrigin
 @RestController
 public class EmployeeController {
 
 	@Autowired
 	private EmployeeService empser;
+	
+	@Autowired
+	private JwtService jwtser;
 	
 	@PostMapping("/addemp")
 	public Employee save(@RequestBody Employee emp)
@@ -73,5 +77,18 @@ public class EmployeeController {
 	public Object getpic(@PathVariable int empid)
 	{
 		return empser.getimage(empid);
+	}
+	
+	
+	@GetMapping("/getmanagerlist")
+	public List<Employee> getallmanager()
+	{
+		return empser.getallmanager();
+	}
+	
+	@GetMapping("/gettoken")
+	public String gettoken(@RequestParam String username)
+	{
+		return jwtser.generateToken(username);
 	}
 }
